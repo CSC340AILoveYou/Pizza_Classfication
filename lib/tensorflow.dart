@@ -94,7 +94,7 @@ class _TensorflowState extends State<Tensorflow> {
             _loading
                 ? Container(
                     height: 300,
-                    width: 300,
+                    width: 301,
                   )
                 : Container(
                     margin: EdgeInsets.all(20),
