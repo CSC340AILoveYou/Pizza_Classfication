@@ -31,6 +31,8 @@ class _ImageClassifierState extends State<ImageClassifier> {
       model: "assets/model_unquant.tflite",
       labels: "assets/labels.txt",
       numThreads: 1,
+      isAsset: true,
+      useGpuDelegate: false
     );
   }
 
