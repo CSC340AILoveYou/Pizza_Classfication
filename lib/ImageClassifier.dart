@@ -28,12 +28,11 @@ class _ImageClassifierState extends State<ImageClassifier> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: "assets/model_unquant.tflite",
-      labels: "assets/labels.txt",
-      numThreads: 1,
-      isAsset: true,
-      useGpuDelegate: false
-    );
+        model: "assets/model_unquant.tflite",
+        labels: "assets/labels.txt",
+        numThreads: 1,
+        isAsset: true,
+        useGpuDelegate: false);
   }
 
   classifyImage(File image) async {
@@ -79,86 +78,81 @@ class _ImageClassifierState extends State<ImageClassifier> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amberAccent,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Pizza🍕 VS Not Pizza🌭",
+          "Pizza🍕 and Not Pizza🌭",
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         backgroundColor: Colors.red,
         elevation: 0,
       ),
       body: Container(
-        color: Colors.amberAccent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _loading
-                ? Container(
-                    height: 300,
-                    width: 300,
-                  )
-                : Container(
-                    margin: EdgeInsets.all(20),
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _image == null ? Container() : Image.file(_image),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        _image == null
-                            ? Container()
-                            : _outputs != null
-                                ? Container(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          _outputs[0]["label"] + "\n",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15),
-                                        ),
-                                        Text(
-                                          "${(_outputs[0]["confidence"] * 100).toStringAsFixed(2)}%  Confidence level" +
-                                              "\n",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : Container(child: Text(""))
-                      ],
-                    ),
-                  ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
-            ),
-            Row(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    child: FloatingActionButton(
-                      tooltip: 'Pick Image',
-                      onPressed: pickImage,
-                      child: Icon(
-                        Icons.photo,
-                        size: 20,
-                        color: Colors.white,
+              children: <Widget>[
+                _loading
+                    ? Container(
+                        height: 300,
+                        width: 300,
+                      )
+                    : Container(
+                        margin: EdgeInsets.all(20),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            _image == null ? Container() : Image.file(_image),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            _image == null
+                                ? Container()
+                                : _outputs != null
+                                    ? Container(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              _outputs[0]["label"] + "\n",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              "${(_outputs[0]["confidence"] * 100).toStringAsFixed(2)}%  Confidence level" +
+                                                  "\n",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Container(child: Text(""))
+                          ],
+                        ),
                       ),
-                      backgroundColor: Colors.red,
-                    ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                FloatingActionButton(
+                  tooltip: 'Pick Image',
+                  onPressed: pickImage,
+                  child: Icon(
+                    Icons.photo,
+                    size: 20,
+                    color: Colors.white,
                   ),
+                  backgroundColor: Colors.red,
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
