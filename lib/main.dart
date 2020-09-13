@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pizza/tensorflow.dart';
+import 'package:smart_pizza/ImageClassifier.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tensorflow Lite',
-      home: Tensorflow(),
+      home: ImageClassifier(),
     );
   }
 }
